@@ -1,0 +1,25 @@
+@use '../../GeneralStyles/GeneralStyles.scss' as *;
+
+.myButton {
+  height: 50px;
+  background: $white;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+
+  &:active {
+    color: $white;
+    background: $primary-color;
+  }
+
+  &:disabled {
+    background: $btn-text;
+    cursor: not-allowed;
+  }
+}

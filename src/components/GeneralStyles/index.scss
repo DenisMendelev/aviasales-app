@@ -1,0 +1,21 @@
+@use './GeneralStyles.scss' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+:root {
+  font-family: 'Open Sans', sans-serif;
+  line-height: 20px;
+  font-weight: 400;
+  color: $dark-text;
+  background-color: $page;
+  font-size: 13px;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -1,0 +1,57 @@
+@use '../GeneralStyles/GeneralStyles.scss' as *;
+
+.transfer-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 232px;
+  height: 252px;
+  margin-bottom: 20px;
+  background-color: $white;
+  border-radius: 5px;
+  box-shadow: 0 1px 4px 0 $shadow;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+  }
+}
+
+.transfer-form__title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+}
+
+.transfer-form__list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.transfer-form__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 400;
+
+  @media (max-width: 768px) {
+    padding: 8px 15px;
+  }
+}
+
+.transfer-form__item * {
+  cursor: pointer;
+}
+
+.transfer-form__item:hover {
+  background-color: $hover-color;
+  border-radius: 5px;
+}

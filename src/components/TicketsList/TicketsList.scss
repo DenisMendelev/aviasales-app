@@ -1,0 +1,55 @@
+@use '../GeneralStyles/GeneralStyles.scss' as *;
+
+.no-tickets {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 500px;
+  text-align: center;
+  color: $dark-text;
+
+  .no-tickets__img {
+    width: 300px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .no-tickets__text {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    margin: 10px auto;
+
+    .no-tickets__img {
+      width: 200px;
+    }
+
+    .no-tickets__text {
+      font-size: 16px;
+    }
+  }
+}
+
+.show-more-button {
+  width: 100%;
+  max-width: 495px;
+  background: $primary-color;
+  color: $white;
+  text-transform: uppercase;
+  font-size: 12px;
+  padding: 15px;
+
+  &:disabled {
+    background: $btn-text;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
+}
