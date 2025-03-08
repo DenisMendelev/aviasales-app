@@ -45,7 +45,7 @@ function App() {
         <div className="box__transfer-form">
           <TransferForm />
         </div>
-        <div className="box__buttons-tickets">
+        <div className="box__buttons">
           <MyButton
             className="sort-buttons"
             text="Самый дешевый"
