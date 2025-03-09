@@ -20,7 +20,6 @@ const initialState = {
   tickets: loadTicketsFromStorage(),
   loading: false,
   searchId: null,
-  isFetchComplete: false,
 };
 
 const apiSlice = createSlice({
@@ -51,24 +50,15 @@ const apiSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
-    setFetchComplete: (state, action) => {
-      state.isFetchComplete = action.payload;
-    },
     clearTickets: (state) => {
       state.tickets = [];
-      state.isFetchComplete = false;
       localStorage.removeItem('tickets');
     },
   },
 });
 
-export const {
-  addTickets,
-  setSearchId,
-  setLoading,
-  setFetchComplete,
-  clearTickets,
-} = apiSlice.actions;
+export const { addTickets, setSearchId, setLoading, clearTickets } =
+  apiSlice.actions;
 
 export const fetchSearchId = () => async (dispatch) => {
   try {
@@ -84,41 +74,16 @@ export const fetchSearchId = () => async (dispatch) => {
 };
 
 export const fetchTickets = (searchId) => async (dispatch, getState) => {
-  const state = getState();
-  if (state.tickets.isFetchComplete) {
-    return;
-  }
-
   let stop = false;
-  const maxIterations = 10;
-  const maxRetries = 3;
-
-  let iteration = 0;
-  let retries = 0;
-
-  while (!stop && iteration < maxIterations) {
+  while (!stop) {
     try {
       dispatch(setLoading(true));
       const response = await api.get(`/tickets?searchId=${searchId}`);
       dispatch(addTickets(response.data.tickets));
       stop = response.data.stop;
-      if (stop) {
-        dispatch(setFetchComplete(true));
-      }
-      retries = 0;
     } catch (error) {
-      retries++;
-      if (retries >= maxRetries) {
-        console.error(
-          'Не удалось загрузить билеты после нескольких попыток:',
-          error
-        );
-        dispatch(setLoading(false));
-        break;
-      }
       console.warn('Ошибка загрузки билетов, пытаемся продолжить:', error);
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      continue;
     } finally {
       dispatch(setLoading(false));
     }
@@ -127,10 +92,7 @@ export const fetchTickets = (searchId) => async (dispatch, getState) => {
     const visibleTickets = state.filter.visibleTickets;
     const currentTickets = state.tickets.tickets.length;
     if (currentTickets >= visibleTickets) {
-      break;
     }
-
-    iteration++;
   }
 };
 
