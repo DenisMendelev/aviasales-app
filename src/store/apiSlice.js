@@ -67,7 +67,6 @@ export const fetchSearchId = () => async (dispatch) => {
     dispatch(setSearchId(response.data.searchId));
     dispatch(clearTickets());
   } catch (error) {
-    console.warn('Ошибка получения searchId, пытаемся продолжить:', error);
   } finally {
     dispatch(setLoading(false));
   }
@@ -82,7 +81,6 @@ export const fetchTickets = (searchId) => async (dispatch, getState) => {
       dispatch(addTickets(response.data.tickets));
       stop = response.data.stop;
     } catch (error) {
-      console.warn('Ошибка загрузки билетов, пытаемся продолжить:', error);
       await new Promise((resolve) => setTimeout(resolve, 2000));
     } finally {
       dispatch(setLoading(false));
