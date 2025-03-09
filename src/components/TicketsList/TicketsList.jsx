@@ -12,11 +12,17 @@ const TicketsList = () => {
   const dispatch = useDispatch();
   const sortedTickets = useSelector(selectSortedTickets);
   const { visibleTickets } = useSelector((state) => state.filter);
-  const { loading, searchId } = useSelector((state) => state.tickets);
+  const { loading, searchId, isFetchComplete } = useSelector(
+    (state) => state.tickets
+  );
 
   const handleShowMore = () => {
     dispatch(showMoreTickets());
-    if (sortedTickets.length <= visibleTickets + 5 && searchId) {
+    if (
+      sortedTickets.length <= visibleTickets + 5 &&
+      searchId &&
+      !isFetchComplete
+    ) {
       dispatch(fetchTickets(searchId));
     }
   };
