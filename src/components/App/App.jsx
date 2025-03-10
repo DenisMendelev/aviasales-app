@@ -9,11 +9,13 @@ import { fetchSearchId, fetchTickets } from '../../store/apiSlice';
 import { setSorter } from '../../store/ticketsSlice';
 import Lottie from 'react-lottie';
 import planeLoader from '../../assets/FlyingPlaneLoader.json';
+import { selectSortedTickets } from '../../store/ticketsSlice';
 
 function App() {
   const dispatch = useDispatch();
   const { searchId, loading } = useSelector((state) => state.tickets);
   const selectedSorter = useSelector((state) => state.filter.selectedSorter);
+  const sortedTickets = useSelector(selectSortedTickets);
 
   useEffect(() => {
     dispatch(fetchSearchId());
@@ -79,7 +81,7 @@ function App() {
             }}
             onClick={() => handleSort('optimal')}
           />
-          {loading ? (
+          {loading && sortedTickets.length === 0 ? (
             <div className="loader">
               <Lottie options={lottieOptions} height={200} width={200} />
             </div>

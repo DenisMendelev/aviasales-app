@@ -52,9 +52,9 @@ const TicketsList = () => {
         <MyButton
           className="show-more-button"
           style={{ marginTop: '20px', width: '495px' }}
-          text={loading ? 'Загрузка...' : 'Показать еще 5 билетов!'}
+          text={loading ? 'Загрузка...' : 'Показать еще 5 билетов'}
           onClick={handleShowMore}
-          disabled={loading || visibleTickets >= sortedTickets.length}
+          disabled={loading && sortedTickets.length === 0}
         />
       )}
     </div>

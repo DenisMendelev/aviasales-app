@@ -41,7 +41,7 @@ const apiSlice = createSlice({
         });
       });
 
-      state.tickets = [...state.tickets, ...uniqueTickets];
+      state.tickets.push(...uniqueTickets);
       saveTicketsToStorage(state.tickets);
     },
     setSearchId: (state, action) => {
@@ -67,12 +67,13 @@ export const fetchSearchId = () => async (dispatch) => {
     dispatch(setSearchId(response.data.searchId));
     dispatch(clearTickets());
   } catch (error) {
+    console.error('Error fetching searchId:', error);
   } finally {
     dispatch(setLoading(false));
   }
 };
 
-export const fetchTickets = (searchId) => async (dispatch, getState) => {
+export const fetchTickets = (searchId) => async (dispatch) => {
   let stop = false;
   while (!stop) {
     try {
@@ -81,15 +82,10 @@ export const fetchTickets = (searchId) => async (dispatch, getState) => {
       dispatch(addTickets(response.data.tickets));
       stop = response.data.stop;
     } catch (error) {
+      console.error('Error fetching tickets:', error);
       await new Promise((resolve) => setTimeout(resolve, 2000));
     } finally {
       dispatch(setLoading(false));
-    }
-
-    const state = getState();
-    const visibleTickets = state.filter.visibleTickets;
-    const currentTickets = state.tickets.tickets.length;
-    if (currentTickets >= visibleTickets) {
     }
   }
 };
